@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <center> <title>Prédiction du prix de la maison</title></center>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #predictedPrice {
+            font-size: 24px;
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .btn-predict {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+   <center> <h1 class="mt-5">Résultat de la prédiction</h1></center>
+    <div class="row mt-3">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Le prix prédit de la maison est :</h5>
+                   <center> <p class="card-text" id="predictedPrice">{{ prediction_result }} euros</p></center>
+                    <a href="/" class="btn btn-primary btn-predict">Faire une nouvelle prédiction</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tableau pour afficher les maisons similaires -->
+    <div class="row mt-5">
+        <div class="col-md-8 offset-md-2">
+            <h2>Maisons similaires</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Quartier</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Surface</th>
+                        <!-- Ajoutez d'autres en-têtes de colonnes si nécessaire -->
+                    </tr>
+                </thead>
+                <tbody id="similarHousesTableBody">
+                    <!-- Les 5 premières maisons similaires seront ajoutées ici -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    fetch('/houses_in_madrid')
+        .then(response => response.json())
+        .then(data => {
+            const similarHousesTableBody = document.getElementById('similarHousesTableBody');
+            data.slice(0, 5).forEach(house => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${house.district_name}</td>
+                    <td>${house.prix_achat} euros</td>
+                    <td>${house.m2_construit} m²</td>
+                    <!-- Ajoutez d'autres cellules de données si nécessaire -->
+                `;
+                similarHousesTableBody.appendChild(row);
+            });
+        });
+</script>
+</body>
+</html>

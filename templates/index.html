@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimation du prix de vente d'un bien immobilier</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        header img {
+            display: block;
+            margin: 0 auto;
+        }
+        .hidden {
+            display: none;
+        }
+        .checkbox-column {
+            column-count: 3;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form {
+            width: 70%;
+        }
+        .price {
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <img src="{{ url_for('static', filename='maison_header.png') }}" alt="Prédictions">
+    <center><h1>Prédiction du prix de la maison</h1></center>
+</header>
+
+<form action="/" method="post" class="container">
+    <div id="variable1">
+        <label for="m2_construit">Surface</label>
+        <input type="text" id="m2_construit" name="m2_construit" class="form-control"><br>
+    </div>
+
+ 
+  
+    <div id="variable4" class="hidden">
+        <label for="nb_etages">Nombre d'étages</label>
+        <input type="text" id="nb_etages" name="nb_etages" class="form-control"><br>
+    </div>
+
+    <div id="variable5" class="hidden">
+        <label for="prix_achat_m2">Prix d'achat par mètre carré</label>
+        <input type="text" id="prix_achat_m2" name="prix_achat_m2" class="form-control"><br>
+    </div>
+
+     <div id="variable7" class="hidden">
+         <label for="num_quartier">Numéro de quartier</label>
+         <input type="text" id="num_quartier" name="num_quartier" class="form-control"><br>
+     </div>
+
+    <div id="checkboxVariables" class="hidden">
+        <div class="checkbox-column">
+            <div>
+                <label for="travaux_necessaire">Travaux nécessaires:</label>
+                <input type="checkbox" id="travaux_necessaire" name="travaux_necessaire"><br><br>
+            </div>
+            <div>
+                <label for="jardin">Jardin:</label>
+                <input type="checkbox" id="jardin" name="jardin"><br><br>
+            </div>
+            <div>
+                <label for="piscine">Piscine:</label>
+                <input type="checkbox" id="piscine" name="piscine"><br><br>
+            </div>
+            <div>
+                <label for="terrace">Terrace:</label>
+                <input type="checkbox" id="terrace" name="terrace"><br><br>
+            </div>
+            <div>
+                <label for="balcon">Balcon:</label>
+                <input type="checkbox" id="balcon" name="balcon"><br><br>
+            </div>
+            <div>
+                <label for="salle_rangement">Salle de rangement:</label>
+                <input type="checkbox" id="salle_rangement" name="salle_rangement"><br><br>
+            </div>
+            <div>
+                <label for="espace_vert">Espace vert:</label>
+                <input type="checkbox" id="espace_vert" name="espace_vert"><br><br>
+            </div>
+            <div>
+                <label for="parking">Parking:</label>
+                <input type="checkbox" id="parking" name="parking"><br><br>
+            </div>
+        </div>
+        <div class="checkbox-column">
+            <div>
+                <label for="type_duplex">Type Duplex:</label>
+                <input type="checkbox" id="type_duplex" name="type_duplex"><br><br>
+            </div>
+            <div>
+                <label for="type_maison">Type Maison:</label>
+                <input type="checkbox" id="type_maison" name="type_maison"><br><br>
+            </div>
+            <div>
+                <label for="type_penthouse">Type Penthouse:</label>
+                <input type="checkbox" id="type_penthouse" name="type_penthouse"><br><br>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" id="nextButton" class="btn btn-primary">Suivant</button>
+    <button type="submit" id="predictButton" class="btn btn-primary hidden">Prédire</button>
+    <p class="error-message hidden">Veuillez remplir tous les champs avant de passer à l'étape suivante.</p>
+</form>
+
+{% if prediction %}
+    <div id="predictionResult" class="hidden">
+        <h2>Résultat de la prédiction</h2>
+        <p>Le prix prédit de la maison est : <span class="price" id="predictionValue">{{ prediction_result }}</span> euros</p>
+        <button id="newPredictionButton" class="btn btn-primary">Faire une nouvelle prédiction</button>
+    </div>
+{% endif %}
+
+<script>
+    // Sélectionnez les éléments du formulaire
+    const nextButton = document.getElementById('nextButton');
+    const predictButton = document.getElementById('predictButton');
+    const variable1 = document.getElementById('variable1');
+    const variable4 = document.getElementById('variable4');
+    const variable5 = document.getElementById('variable5');
+    const variable7 = document.getElementById('variable7');
+    const checkboxVariables = document.getElementById('checkboxVariables');
+    const errorMessages = document.querySelectorAll('.error-message');
+
+    nextButton.addEventListener('click', function() {
+        if (!variable1.classList.contains('hidden')) {
+            if (document.getElementById('m2_construit').value === '') {
+                errorMessages.forEach(function(message) {
+                    message.classList.remove('hidden');
+                });
+                return; 
+            } else {
+                variable1.classList.add('hidden');
+                variable4.classList.remove('hidden');
+            }
+        } else if (!variable4.classList.contains('hidden')) {
+            if (document.getElementById('nb_etages').value === '') {
+                errorMessages.forEach(function(message) {
+                    message.classList.remove('hidden');
+                });
+                return; 
+            } else {
+                variable4.classList.add('hidden');
+                variable5.classList.remove('hidden');
+            }
+        } else if (!variable5.classList.contains('hidden')) {
+            if (document.getElementById('prix_achat_m2').value === '') {
+                errorMessages.forEach(function(message) {
+                    message.classList.remove('hidden');
+                });
+                return; 
+            } else {
+                variable5.classList.add('hidden');
+                variable7.classList.remove('hidden');
+            }
+        } else {
+            variable7.classList.add('hidden');
+            checkboxVariables.classList.remove('hidden');
+            predictButton.classList.remove('hidden');
+            nextButton.classList.add('hidden');
+        }
+    });
+
+    predictButton.addEventListener('click', function() {
+        // Afficher le résultat de la prédiction
+        document.getElementById('predictionResult').classList.remove('hidden');
+        
+        // Formater la prédiction en tant que prix
+        const predictionValue = parseFloat(document.getElementById('predictionValue').innerText);
+        const formattedPrediction = predictionValue.toLocaleString('fr-FR', {
+            style: 'currency',
+            currency: 'EUR'
+        });
+        
+        // Afficher la prédiction formatée
+        document.getElementById('predictionValue').innerText = formattedPrediction;
+    });
+
+    document.getElementById('newPredictionButton').addEventListener('click', function() {
+        // Réinitialiser le formulaire en le réaffichant et en masquant le résultat de la prédiction
+        document.getElementById('predictionResult').classList.add('hidden');
+        variable1.classList.remove('hidden');
+        variable2.classList.add('hidden');
+        variable3.classList.add('hidden');
+        variable4.classList.add('hidden');
+        variable5.classList.add('hidden');
+        variable6.classList.add('hidden');
+        variable7.classList.add('hidden');
+        checkboxVariables.classList.remove('hidden');
+        predictButton.classList.remove('hidden');
+        nextButton.classList.remove('hidden');
+    });
+</script>
+</body>
+</html>
