@@ -42,13 +42,6 @@
         <input type="text" id="m2_construit" name="m2_construit" class="form-control"><br>
     </div>
 
- 
-  
-    <div id="variable4" class="hidden">
-        <label for="nb_etages">Nombre d'étages</label>
-        <input type="text" id="nb_etages" name="nb_etages" class="form-control"><br>
-    </div>
-
     <div id="variable5" class="hidden">
         <label for="prix_achat_m2">Prix d'achat par mètre carré</label>
         <input type="text" id="prix_achat_m2" name="prix_achat_m2" class="form-control"><br>
@@ -115,7 +108,7 @@
     <p class="error-message hidden">Veuillez remplir tous les champs avant de passer à l'étape suivante.</p>
 </form>
 
-{% if prediction %}
+{% if prediction_result %}
     <div id="predictionResult" class="hidden">
         <h2>Résultat de la prédiction</h2>
         <p>Le prix prédit de la maison est : <span class="price" id="predictionValue">{{ prediction_result }}</span> euros</p>
@@ -128,7 +121,6 @@
     const nextButton = document.getElementById('nextButton');
     const predictButton = document.getElementById('predictButton');
     const variable1 = document.getElementById('variable1');
-    const variable4 = document.getElementById('variable4');
     const variable5 = document.getElementById('variable5');
     const variable7 = document.getElementById('variable7');
     const checkboxVariables = document.getElementById('checkboxVariables');
@@ -143,16 +135,6 @@
                 return; 
             } else {
                 variable1.classList.add('hidden');
-                variable4.classList.remove('hidden');
-            }
-        } else if (!variable4.classList.contains('hidden')) {
-            if (document.getElementById('nb_etages').value === '') {
-                errorMessages.forEach(function(message) {
-                    message.classList.remove('hidden');
-                });
-                return; 
-            } else {
-                variable4.classList.add('hidden');
                 variable5.classList.remove('hidden');
             }
         } else if (!variable5.classList.contains('hidden')) {
@@ -192,11 +174,7 @@
         // Réinitialiser le formulaire en le réaffichant et en masquant le résultat de la prédiction
         document.getElementById('predictionResult').classList.add('hidden');
         variable1.classList.remove('hidden');
-        variable2.classList.add('hidden');
-        variable3.classList.add('hidden');
-        variable4.classList.add('hidden');
         variable5.classList.add('hidden');
-        variable6.classList.add('hidden');
         variable7.classList.add('hidden');
         checkboxVariables.classList.remove('hidden');
         predictButton.classList.remove('hidden');

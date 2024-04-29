@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <center> <title>Prédiction du prix de la maison</title></center>
+   <title>Prédiction du prix de la maison</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         #predictedPrice {
@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Le prix prédit de la maison est :</h5>
-                   <center> <p class="card-text" id="predictedPrice">{{ prediction_result }} euros</p></center>
+                    <center><p class="card-text" id="predictedPrice">{{ prediction_result }} euros</p></center>
                     <a href="/" class="btn btn-primary btn-predict">Faire une nouvelle prédiction</a>
                 </div>
             </div>
@@ -61,7 +61,7 @@
             data.slice(0, 5).forEach(house => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${house.district_name}</td>
+                    <td>${house.nom_quartier}</td>
                     <td>${house.prix_achat} euros</td>
                     <td>${house.m2_construit} m²</td>
                     <!-- Ajoutez d'autres cellules de données si nécessaire -->

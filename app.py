@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 import joblib
 import pandas as pd
+from sklearn.preprocessing import RobustScaler
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -11,6 +12,8 @@ houses_in_madrid = pd.read_csv('visuel.csv', index_col=0)
 # Charger le modèle
 model = joblib.load('model_en_2.pkl')
 poly = joblib.load('poly.pkl')
+scaler = joblib.load('scaler.pkl')  # Charger RobustScaler
+
 prediction_result = None
 prediction_visu = None
 
@@ -21,7 +24,7 @@ def index():
     if request.method == 'POST':
         # Récupérer les données du formulaire
         m2_construit = int(request.form['m2_construit'])
-        nb_etages = int(request.form['nb_etages'])
+        #nb_etages = int(request.form['nb_etages'])
         prix_achat_m2 = int(request.form['prix_achat_m2'])
         travaux_necessaire = bool(request.form.get('travaux_necessaire', False))
         jardin = bool(request.form.get('jardin', False))
@@ -37,15 +40,18 @@ def index():
         type_penthouse = bool(request.form.get('type_penthouse', False))
         
         # Préparer les données pour la prédiction
-        data = [[m2_construit, nb_etages, prix_achat_m2, travaux_necessaire,
+        data = [[m2_construit, prix_achat_m2, travaux_necessaire,
                  jardin, piscine, terrace, balcon ,salle_rangement, espace_vert, parking, 
                  num_quartier, type_duplex, type_maison, type_penthouse]]
         
         # Appliquer la transformation polynomiale sur les données
         data_poly = poly.transform(data)
         
+        # Mettre à l'échelle les données
+        data_scaled = scaler.transform(data_poly)  # Mettre à l'échelle avec RobustScaler
+        
         # Faire la prédiction
-        prediction_result = round(model.predict(data_poly)[0], 2)
+        prediction_result = round(model.predict(data_scaled)[0], 2)
         prediction_visu = prediction_result
 
         return redirect(url_for('predict'))
