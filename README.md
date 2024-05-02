@@ -7,7 +7,10 @@ Entouré par 2 collaborateurs, ils décident de mettre en avant leurs compétenc
 
 # Procédure
 
-* Faire une analyse exploratoire des données 
+* Faire une analyse exploratoire des données sur PowerBi
+* Concevoir plusieurs modèles de régression linéaire optimisés
+* Créer une application Flask qui fera les prédictions
+* Créer une image Docker de l'application
 
 # Application
 
@@ -47,6 +50,8 @@ Pour utiliser cette application, suivez ces étapes :
     ```
     http://localhost:8080
     ```
+
+**Docker :**
 
 **Analyse exploratoire PowerBI :**  
 
