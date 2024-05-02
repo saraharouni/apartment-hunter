@@ -80,9 +80,6 @@ Il est capable de capturer des relations complexes entre les variables et est mo
 Ces modèles de régression sont couramment utilisés pour modéliser les relations entre les variables dans les données et pour faire des prédictions sur une variable continue. Chacun de ces modèles a ses propres avantages et inconvénients, et le choix du modèle dépend souvent du contexte spécifique du problème et des préférences en termes de performance et d'interprétabilité.
 
 
-
-
-
 # Métriques d'évaluation d'une regression :
 
 **Mean Absolute Error (MAE) :**
