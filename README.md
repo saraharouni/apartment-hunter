@@ -5,6 +5,50 @@
 Un datascientist décide de se reconvertir en agent immobilier après avoir visionné une émission de 'chasseur d'appart'.  
 Entouré par 2 collaborateurs, ils décident de mettre en avant leurs compétences de Data Scientist afin de créer un modèle capable de faire des estimations de prix de biens immobiliers.  
 
+# Procédure
+
+* Faire une analyse exploratoire des données 
+
+# Application
+
+Cette application permet de faire des prédictions sur le prix de biens immobiliers. 
+Pour l'utiliser, il suffit de répondre aux questions et de cliquer sur le bouton *prédiction*
+
+## Utilisation
+
+Pour utiliser cette application, suivez ces étapes :
+
+1. Clonez ce dépôt sur votre machine locale :
+
+    ```bash
+    git clone https://github.com/saraharouni/apartment-hunter.git
+    ```
+
+2. Accédez au répertoire de l'application :
+
+    ```bash
+    cd votre-repo
+    ```
+
+3. Construisez l'image Docker :
+
+    ```bash
+    docker build -t nom-de-votre-image .
+    ```
+
+4. Lancez le conteneur Docker :
+
+    ```bash
+    docker run -p 8080:8080 nom-de-votre-image
+    ```
+
+5. Accédez à l'application dans votre navigateur en utilisant l'URL suivante :
+
+    ```
+    http://localhost:8080
+    ```
+
+**Analyse exploratoire PowerBI :**  
 
 **Conclusion :**
 Nous avons utilisé plusieurs modèles de régression pour estimer le prix d'achat de biens immobiliers:  
