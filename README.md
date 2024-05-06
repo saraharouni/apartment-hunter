@@ -201,8 +201,6 @@ Pour utiliser cette application, suivez ces étapes :
     http://localhost:8080
     ```
 
-**Docker :**
-
 **Analyse exploratoire PowerBI :**  
 
 Après avoir fait notre nettoyage de données, mis en place l’application pour la prédiction de ventes
