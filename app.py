@@ -40,9 +40,7 @@ def index():
         type_penthouse = bool(request.form.get('type_penthouse', False))
         
         # Préparer les données pour la prédiction
-        data = [[m2_construit, prix_achat_m2, travaux_necessaire,
-                 jardin, piscine, terrace, balcon ,salle_rangement, espace_vert, parking, 
-                 num_quartier, type_duplex, type_maison, type_penthouse]]
+        data = [[m2_construit, prix_achat_m2, num_quartier]]
         
         # Appliquer la transformation polynomiale sur les données
         data_poly = poly.transform(data)
