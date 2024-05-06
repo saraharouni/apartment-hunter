@@ -205,6 +205,21 @@ Pour utiliser cette application, suivez ces étapes :
 
 **Analyse exploratoire PowerBI :**  
 
+Après avoir fait notre nettoyage de données, mis en place l’application pour la prédiction de ventes
+ainsi que Docker, nous avons récupérer le fichier CSV afin de préparer le Dashboard Power Bi.
+Dans un premier temps nous avons créé de nouvelle mesures et avons regrouper dans une même
+colonne les habitations de notre fichier CSV pour une analyse plus pertinente.
+Nous nous sommes concentrer sur les différents aspects afin de montrer l’évolution de prix d’achats
+des habitations par rapport à leur emplacement dans les quartiers que nous avions dans notre jeu de
+données.
+Ainsi nous avons pu constater que par rapport aux différents caractéristiques le prix moyen d’achat
+des logements a fortement augmenté en 1900.
+Nous avons aussi une proportion de construction d’appartement qui est beaucoup plus forte
+contrairement aux penthouses, maison ou duplex.
+Notre Dashboard est dynamique ce qui nous permet en en seul coup d’œil d’obtenir des
+informations pertinentes et ainsi connaitre le prix des biens sur le marché à différentes périodes
+comprises entre 1800 et 2022.
+
 **Conclusion :**
 Nous avons utilisé plusieurs modèles de régression pour estimer le prix d'achat de biens immobiliers:  
 
