@@ -186,13 +186,13 @@ Pour utiliser cette application, suivez ces étapes :
 3. Construisez l'image Docker :
 
     ```bash
-    docker build -t nom-de-votre-image .
+    docker compose up --build
     ```
 
 4. Lancez le conteneur Docker :
 
     ```bash
-    docker run -p 8080:8080 nom-de-votre-image
+    docker run -p 8080:8080 apartment-hunter-main-server
     ```
 
 5. Accédez à l'application dans votre navigateur en utilisant l'URL suivante :
